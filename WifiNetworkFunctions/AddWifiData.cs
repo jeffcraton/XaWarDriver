@@ -14,23 +14,6 @@ using Microsoft.Azure.Documents.Linq;
 
 namespace WifiNetworkFunctions
 {
-
-    public class networkdata
-    {
-        public string ssid = "";
-        public string networkname = "";
-        public string open = "";
-        public string crypto = "";
-        public string frequency = "";        
-    }
-    public class gpsreadings
-    {
-        public string ssid = "";
-        public string slat = "";
-        public string slon = "";
-    }
-
-
     public static class AddWifiData
     {
 
