@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XaWarDriver.Android", "XaWarDriver.Android\XaWarDriver.Android.csproj", "{57F06FF1-4A49-46F7-9C56-D94343B76C21}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XaWarDriver", "XaWarDriver\XaWarDriver.csproj", "{83D3635D-1D41-4154-B184-DFFE75C7F80A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiNetworkFunctions", "WifiNetworkFunctions\WifiNetworkFunctions.csproj", "{1B212D63-05A1-4538-9482-61475E4CB09C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57F06FF1-4A49-46F7-9C56-D94343B76C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F06FF1-4A49-46F7-9C56-D94343B76C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F06FF1-4A49-46F7-9C56-D94343B76C21}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{57F06FF1-4A49-46F7-9C56-D94343B76C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F06FF1-4A49-46F7-9C56-D94343B76C21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F06FF1-4A49-46F7-9C56-D94343B76C21}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{83D3635D-1D41-4154-B184-DFFE75C7F80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D3635D-1D41-4154-B184-DFFE75C7F80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83D3635D-1D41-4154-B184-DFFE75C7F80A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{83D3635D-1D41-4154-B184-DFFE75C7F80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83D3635D-1D41-4154-B184-DFFE75C7F80A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D3635D-1D41-4154-B184-DFFE75C7F80A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1B212D63-05A1-4538-9482-61475E4CB09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B212D63-05A1-4538-9482-61475E4CB09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B212D63-05A1-4538-9482-61475E4CB09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B212D63-05A1-4538-9482-61475E4CB09C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5FBE6C9-2DC8-4517-A996-92F041B4D98A}
+	EndGlobalSection
+EndGlobal
