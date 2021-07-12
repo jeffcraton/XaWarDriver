@@ -48,12 +48,13 @@ namespace WifiNetworkFunctions
             {
                 await documentsOut.AddAsync(new
                 {
-                    id = System.Guid.NewGuid().ToString(),
+                    id = nd.id,
                     ssid = nd.ssid,
                     networkname = nd.networkname,
                     open = nd.open,
                     crypto = nd.crypto,
-                    frequency = nd.frequency
+                    frequency = nd.frequency,
+                    dateadded = nd.dateadded
                 });
             }
             //

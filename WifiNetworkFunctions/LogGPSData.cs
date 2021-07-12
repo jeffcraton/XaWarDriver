@@ -40,10 +40,11 @@ namespace WifiNetworkFunctions
             {
                 await documentsOut.AddAsync(new
                 {
-                    id = System.Guid.NewGuid().ToString(),
+                    id = nd.id,
                     ssid = nd.ssid,
                     slat = nd.slat,
-                    slon = nd.slon
+                    slon = nd.slon,
+                    dateadded = nd.dateadded
                 });
             }
             //

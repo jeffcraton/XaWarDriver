@@ -7,28 +7,26 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Microsoft.Azure.WebJobs.Host;
 using System.Net.Http;
 using System.Net;
 using System.Text;
 
 namespace WifiNetworkFunctions
 {
-    public static class GetNetworkBySSID
+    public static class GetGPSBySSID
     {
-        [FunctionName("GetNetworkBySSID")]
+        [FunctionName("GetGPSBySSID")]
         public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post",
-                Route = "neworkreadings/{ssid}/{id}")]HttpRequest req,
+                Route = "gpsreadings/{ssid}/{id}")]HttpRequest req,
             [CosmosDB(
                 databaseName: "Wirelessdata",
-                collectionName: "Networkreadings",
+                collectionName: "GPSReadings",
                 ConnectionStringSetting = "CosmosDbConnectionString",
                 Id = "{id}",
-                PartitionKey = "{ssid}")] networkdata ndata,
+                PartitionKey = "{ssid}")] gpsreadings ndata,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
             var jsonToReturn = JsonConvert.SerializeObject(ndata);
             if (ndata == null)
             {
@@ -36,7 +34,7 @@ namespace WifiNetworkFunctions
             }
             else
             {
-                log.LogInformation($"Found Networkdata item, Network name={ndata.networkname}");
+                log.LogInformation($"Found Networkdata item, Network name={ndata.ssid}");
             }
             //
             // return json output
@@ -45,6 +43,7 @@ namespace WifiNetworkFunctions
             {
                 Content = new StringContent(content: jsonToReturn, Encoding.UTF8, "application/json")
             };
+
         }
     }
 }
