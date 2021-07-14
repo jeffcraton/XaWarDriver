@@ -10,5 +10,7 @@ namespace XaWarDriver.Models
         public string open { get; set; }
         public string crypto { get; set; }
         public string frequency { get; set; }
+        public bool sentToCloud { get; set; }
+        public DateTime datescanned { get; set; }
     }
 }

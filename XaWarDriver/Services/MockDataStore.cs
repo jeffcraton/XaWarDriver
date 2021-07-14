@@ -18,7 +18,7 @@ namespace XaWarDriver.Services
                 new Networkreadings { Id = Guid.NewGuid().ToString(), ssid = "22245", networkname="att56uh" },
                 new Networkreadings { Id = Guid.NewGuid().ToString(), ssid = "87655", networkname="veriz66" },
                 new Networkreadings { Id = Guid.NewGuid().ToString(), ssid = "112299", networkname="Homenet99" },
-                new Networkreadings { Id = Guid.NewGuid().ToString(), ssid = "99017", networkname="thorslaur" },
+                new Networkreadings { Id = Guid.NewGuid().ToString(), ssid = "99017", networkname="thorslair" },
                 new Networkreadings { Id = Guid.NewGuid().ToString(), ssid = "34341", networkname="loki" }
             };
         }
@@ -27,6 +27,12 @@ namespace XaWarDriver.Services
         {
             items.Add(item);
 
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> ClearItems()
+        {
+            items.Clear();
             return await Task.FromResult(true);
         }
 
