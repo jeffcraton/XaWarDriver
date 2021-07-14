@@ -12,7 +12,7 @@ namespace XaWarDriver.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<Networkreadings> DataStore => DependencyService.Get<IDataStore<Networkreadings>>();
 
         bool isBusy = false;
         public bool IsBusy

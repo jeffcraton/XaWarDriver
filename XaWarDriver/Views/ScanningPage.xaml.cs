@@ -5,9 +5,9 @@ using Xamarin.Forms.Xaml;
 
 namespace XaWarDriver.Views
 {
-    public partial class AboutPage : ContentPage
+    public partial class ScanningPage : ContentPage
     {
-        public AboutPage()
+        public ScanningPage()
         {
             InitializeComponent();
         }

@@ -10,22 +10,39 @@ namespace XaWarDriver.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
-        private string description;
+        private string _ssid;
+        private string _neworkname;
+        private string _open;
+        private string _crypto;
+        private string _frequency;
         public string Id { get; set; }
 
-        public string Text
+        public string ssid
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => _ssid;
+            set => SetProperty(ref _ssid, value);
         }
 
-        public string Description
+        public string networkname
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _neworkname;
+            set => SetProperty(ref _neworkname, value);
         }
-
+        public string open
+        {
+            get => _open;
+            set => SetProperty(ref _open, value);
+        }
+        public string crypto
+        {
+            get => _crypto;
+            set => SetProperty(ref _crypto, value);
+        }
+        public string frequency
+        {
+            get => _frequency;
+            set => SetProperty(ref _frequency, value);
+        }
         public string ItemId
         {
             get
@@ -45,8 +62,11 @@ namespace XaWarDriver.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                ssid = item.ssid;
+                networkname = item.networkname;
+                open = item.open;
+                crypto = item.crypto;
+                frequency = item.frequency;
             }
             catch (Exception)
             {

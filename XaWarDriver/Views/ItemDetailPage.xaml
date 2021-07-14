@@ -5,10 +5,16 @@
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
+        <Label Text="SSID:" FontSize="Medium" />
+        <Label Text="{Binding ssid}" FontSize="Small"/>
+        <Label Text="Network name:" FontSize="Medium" />
+        <Label Text="{Binding networkname}" FontSize="Small"/>
+        <Label Text="Open:" FontSize="Medium" />
+        <Label Text="{Binding open}" FontSize="Small"/>
+        <Label Text="Crypto:" FontSize="Medium" />
+        <Label Text="{Binding crypto}" FontSize="Small"/>
+        <Label Text="Frequency:" FontSize="Medium" />
+        <Label Text="{Binding frequency}" FontSize="Small"/>        
     </StackLayout>
     
 </ContentPage>

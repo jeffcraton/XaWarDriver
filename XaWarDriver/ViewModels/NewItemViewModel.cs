@@ -9,8 +9,11 @@ namespace XaWarDriver.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
+        private string _ssid;
+        private string _networkname;
+        private string _open;
+        private string _crypto;
+        private string _frequency;
 
         public NewItemViewModel()
         {
@@ -22,20 +25,38 @@ namespace XaWarDriver.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(_ssid)
+                && !String.IsNullOrWhiteSpace(_networkname);
         }
 
-        public string Text
+        public string ssid
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => _ssid;
+            set => SetProperty(ref _ssid, value);
         }
 
-        public string Description
+        public string networkname
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _networkname;
+            set => SetProperty(ref _networkname, value);
+        }
+
+        public string open
+        {
+            get => _open;
+            set => SetProperty(ref _open, value);
+        }
+
+        public string crypto
+        {
+            get => _crypto;
+            set => SetProperty(ref _crypto, value);
+        }
+
+        public string frequency
+        {
+            get => _frequency;
+            set => SetProperty(ref _frequency, value);
         }
 
         public Command SaveCommand { get; }
@@ -49,11 +70,11 @@ namespace XaWarDriver.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            Networkreadings newItem = new Networkreadings()
             {
                 Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
+                ssid = _ssid,
+                networkname = _networkname
             };
 
             await DataStore.AddItemAsync(newItem);

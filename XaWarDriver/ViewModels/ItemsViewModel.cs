@@ -12,20 +12,20 @@ namespace XaWarDriver.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private Networkreadings _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<Networkreadings> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<Networkreadings> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Networkreadings>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<Networkreadings>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -59,7 +59,7 @@ namespace XaWarDriver.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public Networkreadings SelectedItem
         {
             get => _selectedItem;
             set
@@ -74,7 +74,7 @@ namespace XaWarDriver.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(Networkreadings item)
         {
             if (item == null)
                 return;
