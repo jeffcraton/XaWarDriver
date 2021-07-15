@@ -6,6 +6,7 @@ using Android.Net.Wifi;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using XaWarDriver.Models;
 
 namespace XaWarDriver.Services
 {
@@ -14,7 +15,20 @@ namespace XaWarDriver.Services
         private Context context = null;
         private static WifiManager wifi;
         private WifiReceiver wifiReceiver;
-        public static List<string> WiFiNetworks;
+        public static List<Networkreadings> WiFiNetworks;
+        private int _ScanIntervalInSeconds = 60;
+
+        public int ScanIntervalInSeconds
+        {
+            get
+            {
+                return _ScanIntervalInSeconds;
+            }
+            set
+            {
+                _ScanIntervalInSeconds = value;
+            }
+        }
 
         public Wifi(Context ctx)
         {
@@ -23,7 +37,7 @@ namespace XaWarDriver.Services
 
         public void GetWifiNetworks()
         {
-            WiFiNetworks = new List<string>();
+            WiFiNetworks = new List<Networkreadings>();
 
             // Get a handle to the Wifi
             wifi = (WifiManager)context.GetSystemService(Context.WifiService);
@@ -40,8 +54,17 @@ namespace XaWarDriver.Services
             {
                 IList<ScanResult> scanwifinetworks = wifi.ScanResults;
                 foreach (ScanResult wifinetwork in scanwifinetworks)
-                {                    
-                    WiFiNetworks.Add(wifinetwork.Ssid);
+                {
+                    WiFiNetworks.Add(new Networkreadings { 
+                        ssid = wifinetwork.Bssid,
+                        networkname = wifinetwork.Ssid,
+                        crypto = wifinetwork.Capabilities,
+                        open = wifinetwork.WifiStandard.ToString(),
+                        frequency = wifinetwork.Frequency.ToString(),
+                        datescanned = DateTime.Now,
+                        sentToCloud = false
+                    });
+
                 }
             }
         }

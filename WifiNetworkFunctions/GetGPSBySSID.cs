@@ -17,7 +17,7 @@ namespace WifiNetworkFunctions
     {
         [FunctionName("GetGPSBySSID")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post",
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post",
                 Route = "gpsreadings/{ssid}/{id}")]HttpRequest req,
             [CosmosDB(
                 databaseName: "Wirelessdata",

@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Collections.ObjectModel;
+using XaWarDriver.Models;
 
 namespace XaWarDriver.ViewModels
 {
@@ -9,7 +11,9 @@ namespace XaWarDriver.ViewModels
     {
         private double _latitude = 0;
         private double _longitude = 0;
-
+        public ObservableCollection<Networkreadings> Items { get; }
+        public Command LoadItemsCommand { get; }
+        public Command AddItemCommand { get; }
         public ScanningViewModel()
         {
             Title = "Scanning";

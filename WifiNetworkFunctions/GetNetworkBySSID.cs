@@ -18,7 +18,7 @@ namespace WifiNetworkFunctions
     {
         [FunctionName("GetNetworkBySSID")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post",
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post",
                 Route = "neworkreadings/{ssid}/{id}")]HttpRequest req,
             [CosmosDB(
                 databaseName: "Wirelessdata",
