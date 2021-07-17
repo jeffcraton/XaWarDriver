@@ -7,6 +7,12 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WifiNetworkFunctions
 {
@@ -19,40 +25,40 @@ namespace WifiNetworkFunctions
                 databaseName: "Wirelessdata",
                 collectionName: "GPSReadings",
                 ConnectionStringSetting = "CosmosDbConnectionString")]IAsyncCollector<dynamic> documentsOut,
+            [CosmosDB(
+                databaseName: "Wirelessdata",
+                collectionName: "GPSReadings",
+                ConnectionStringSetting = "CosmosDBConnectionString")] DocumentClient client,
             ILogger log)
+
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
-            gpsreadings nd = new gpsreadings();
-            nd.ssid = req.Query["ssid"];
-            nd.slat = req.Query["slat"];
-            nd.slon = req.Query["slon"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            nd.ssid = nd.ssid ?? data?.ssid;
-            nd.slat = nd.slat ?? data?.slat;
-            nd.slon = nd.slon ?? data?.slon;
+            List<gpsreadings> data = JsonConvert.DeserializeObject<List<gpsreadings>>(requestBody);
+            int irecct = 0;
 
-            //
-            // send document to cosmos
-            //
-            if (!string.IsNullOrEmpty(nd.ssid))
+            foreach (gpsreadings nd in data)
             {
-                await documentsOut.AddAsync(new
+                if (nd != null && nd.ssid != null && nd.slat != null && nd.slon != null )
                 {
-                    id = nd.id,
-                    ssid = nd.ssid,
-                    slat = nd.slat,
-                    slon = nd.slon,
-                    dateadded = nd.dateadded
-                });
+                    //
+                    // send document to cosmos
+                    //
+                    await documentsOut.AddAsync(new
+                    {
+                        id = nd.id,
+                        ssid = nd.ssid,
+                        slat = nd.slat,
+                        slon = nd.slon,
+                        dateadded = nd.dateadded
+                    });
+                }
             }
             //
             // http response
             //
-            string responseMessage = string.IsNullOrEmpty(nd.ssid)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Logging GPS data for SSID {nd.ssid} at lat: {nd.slat} lon:{nd.slon}";
+            string responseMessage =  $"Saving {irecct} records to cosmos.";
 
             return new OkObjectResult(responseMessage);
         }

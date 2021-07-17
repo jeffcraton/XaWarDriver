@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
+using System.Collections.Generic;
+using System.Linq;
+
 
 namespace WifiNetworkFunctions
 {
@@ -22,48 +25,56 @@ namespace WifiNetworkFunctions
                 databaseName: "Wirelessdata",
                 collectionName: "Networkreadings",
                 ConnectionStringSetting = "CosmosDbConnectionString")]IAsyncCollector<dynamic> documentsOut,
+            [CosmosDB(
+                databaseName: "Wirelessdata",
+                collectionName: "GPSReadings",
+                ConnectionStringSetting = "CosmosDBConnectionString")] DocumentClient client,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
+            Uri collectionUri = UriFactory.CreateDocumentCollectionUri("Wirelessdata", "Networkreadings");
 
-            networkdata nd = new networkdata();
-            nd.ssid = req.Query["ssid"];
-            nd.networkname = req.Query["networkname"];
-            nd.open = req.Query["open"];
-            nd.crypto = req.Query["crypto"];
-            nd.frequency = req.Query["frequency"];
+            //networkdata nd = new networkdata();
+            //nd.ssid = req.Query["ssid"];
+            //nd.networkname = req.Query["networkname"];
+            //nd.open = req.Query["open"];
+            //nd.crypto = req.Query["crypto"];
+            //nd.frequency = req.Query["frequency"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-
-            nd.ssid = nd.ssid ?? data?.ssid;
-            nd.networkname = nd.networkname ?? data?.networkname;
-            nd.open = nd.open ?? data?.open;
-            nd.crypto = nd.crypto ?? data?.crypto;
-            nd.frequency = nd.frequency ?? data?.frequency;
-            //
-            // send document to cosmos
-            //
-            if (!string.IsNullOrEmpty(nd.ssid))
+            List<networkdata> data = JsonConvert.DeserializeObject<List<networkdata>>(requestBody);
+            int irecct = 0;
+            foreach (networkdata ndr in data)
             {
-                await documentsOut.AddAsync(new
+                if( ndr != null && ndr.ssid != null && ndr.networkname != null )
                 {
-                    id = nd.id,
-                    ssid = nd.ssid,
-                    networkname = nd.networkname,
-                    open = nd.open,
-                    crypto = nd.crypto,
-                    frequency = nd.frequency,
-                    dateadded = nd.dateadded
-                });
+                    //
+                    // does SSID exist?
+                    //
+                    int matches = client.CreateDocumentQuery<networkdata>(collectionUri, new FeedOptions { EnableCrossPartitionQuery = true })
+                        .Where(p => p.ssid.Contains(ndr.ssid))
+                        .Count();
+                    //
+                    // send document to cosmos
+                    //
+                    if (matches > 0)
+                        continue;
+
+                    irecct = irecct + 1;
+                    try
+                    {
+                        await documentsOut.AddAsync(ndr);
+                    }
+                    catch(Exception ex)
+                    {
+                        string s = ex.ToString();
+                    }
+                }
             }
             //
             // HTTP response
             //
-            string responseMessage = string.IsNullOrEmpty(nd.networkname)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Found network {nd.networkname }, SSID {nd.ssid} - logging to CosmosDB.";
-
+            string responseMessage =  $"processed  {irecct } records.";
 
             return new OkObjectResult(responseMessage);
         }

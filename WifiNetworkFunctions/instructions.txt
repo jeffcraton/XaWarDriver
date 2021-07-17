@@ -1,0 +1,19 @@
+﻿http://localhost:7071/api/LogWifiData example:
+-- this example sends the lsit of networks to azure. POST json.
+-- we will do code enforncement of unique by ssid.
+[
+{
+	ssid: "123",
+	networkname: "homenet",
+	open: "no",
+	crypto: "aes128",
+	frequency:  "23.11"
+},
+{
+	ssid: "987888",
+	networkname: "homenet2",
+	open: "no",
+	crypto: "aes256",
+	frequency:  "23.9"
+},
+]
