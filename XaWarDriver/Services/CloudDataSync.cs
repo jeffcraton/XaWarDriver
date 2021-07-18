@@ -15,6 +15,22 @@ namespace XaWarDriver.Services
         public string SaveGPSURL { get; set; }
         public string SaveGPSKey { get; set; }
 
+        public CloudDataSync()
+        {
+            this.FunctionsHostname = AppSettingsManager.Settings["FunctionsHostname"];
+            this.SaveWifiUrl = AppSettingsManager.Settings["SaveWifiUrl"];
+            this.SaveWifiKey = AppSettingsManager.Settings["SaveWifiKey"];
+            this.SaveGPSURL = AppSettingsManager.Settings["SaveGPSURL"];
+            this.SaveGPSKey = AppSettingsManager.Settings["SaveGPSKey"];
+        }
+        /// <summary>
+        /// post network data:
+        /// https://stackoverflow.com/questions/36458551/send-http-post-request-in-xamarin-forms-c-sharp
+        /// adding auth header:
+        /// https://jan-v.nl/post/adding-authentication-to-your-http-triggered-azure-functions/
+        /// </summary>
+        /// <param name="readings"></param>
+        /// <returns></returns>
         public async System.Threading.Tasks.Task<bool> SaveWifiNetworkdataAsync(List<Networkreadings> readings)
         {
             string jsonData = JsonConvert.SerializeObject(readings);
@@ -25,12 +41,15 @@ namespace XaWarDriver.Services
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(SaveWifiUrl, content);
 
-            // this result string should be something like: "{"token":"rgh2ghgdsfds"}"
             var result = await response.Content.ReadAsStringAsync();
 
             return true;
         }
-
+        /// <summary>
+        /// post GPS data
+        /// </summary>
+        /// <param name="readings"></param>
+        /// <returns></returns>
         public async System.Threading.Tasks.Task<bool> SaveGPSReadingsAsync(List<GPSReadings> readings)
         {
             string jsonData = JsonConvert.SerializeObject(readings);
@@ -41,7 +60,6 @@ namespace XaWarDriver.Services
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(SaveGPSURL, content);
 
-            // this result string should be something like: "{"token":"rgh2ghgdsfds"}"
             var result = await response.Content.ReadAsStringAsync();
 
             return true;
