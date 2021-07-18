@@ -47,6 +47,9 @@ namespace XaWarDriver.Services
         }
         /// <summary>
         /// post GPS data
+        /// https://stackoverflow.com/questions/36458551/send-http-post-request-in-xamarin-forms-c-sharp
+        /// adding auth header:
+        /// https://jan-v.nl/post/adding-authentication-to-your-http-triggered-azure-functions/
         /// </summary>
         /// <param name="readings"></param>
         /// <returns></returns>
