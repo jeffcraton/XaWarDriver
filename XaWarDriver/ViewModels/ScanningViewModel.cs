@@ -2,8 +2,10 @@
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XaWarDriver.Services;
 using System.Collections.ObjectModel;
 using XaWarDriver.Models;
+using Android.Content;
 
 namespace XaWarDriver.ViewModels
 {
@@ -59,6 +61,7 @@ namespace XaWarDriver.ViewModels
 
         public async System.Threading.Tasks.Task PullWifiDataAsync()
         {
+            Intent wifiIntent = new Intent("common.xamarin.WifiService");            
         }
 
         public async System.Threading.Tasks.Task TransmitToCloudAsync()
