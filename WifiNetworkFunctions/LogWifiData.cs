@@ -52,7 +52,7 @@ namespace WifiNetworkFunctions
                     // does SSID exist?
                     //
                     int matches = client.CreateDocumentQuery<networkdata>(collectionUri, new FeedOptions { EnableCrossPartitionQuery = true })
-                        .Where(p => p.ssid.Contains(ndr.ssid))
+                        .Where(p => p.ssid.CompareTo(ndr.ssid) == 0)
                         .Count();
                     //
                     // send document to cosmos
@@ -74,7 +74,7 @@ namespace WifiNetworkFunctions
             //
             // HTTP response
             //
-            string responseMessage =  $"processed  {irecct } records.";
+            string responseMessage =  string.Format( "Processed: {0}", irecct);
 
             return new OkObjectResult(responseMessage);
         }
