@@ -19,6 +19,7 @@ namespace XaWarDriver.Services
         private WifiReceiver wifiReceiver;
         public static Dictionary<string, Networkreadings> WiFiNetworks;
         private int _ScanIntervalInSeconds = 60;
+        public IBinder Binder { get; private set; }
 
         public int ScanIntervalInSeconds
         {
